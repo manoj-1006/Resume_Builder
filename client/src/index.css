@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-slate-100 text-slate-900 antialiased font-sans min-h-screen selection:bg-[#5CB338]/25 selection:text-slate-900;
+  }
+}
+
+/* Custom scrollbars for clean light theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.6);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.9);
+}
+
+/* Font family helpers */
+.font-times { font-family: 'Times New Roman', Times, 'Nimbus Roman No9 L', serif; }
+.font-georgia { font-family: Georgia, 'Times New Roman', serif; }
+.font-cambria { font-family: Cambria, Georgia, serif; }
+.font-garamond { font-family: 'EB Garamond', Garamond, 'Times New Roman', serif; }
+.font-merriweather { font-family: 'Merriweather', Georgia, serif; }
+.font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+
+.font-inter { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+.font-roboto { font-family: 'Roboto', system-ui, -apple-system, sans-serif; }
+.font-lato { font-family: 'Lato', system-ui, sans-serif; }
+.font-opensans { font-family: 'Open Sans', system-ui, sans-serif; }
+.font-poppins { font-family: 'Poppins', system-ui, sans-serif; }
+.font-montserrat { font-family: 'Montserrat', system-ui, sans-serif; }
+.font-arial { font-family: Arial, Helvetica, sans-serif; }
+.font-calibri { font-family: Calibri, Candara, Segoe, 'Segoe UI', Optima, Arial, sans-serif; }
+.font-trebuchet { font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif; }
+.font-verdana { font-family: Verdana, Geneva, sans-serif; }
+
+.font-jetbrains { font-family: 'JetBrains Mono', monospace; }
+.font-courier { font-family: 'Courier New', Courier, monospace; }
+.font-sourcecode { font-family: 'Source Code Pro', monospace; }
+

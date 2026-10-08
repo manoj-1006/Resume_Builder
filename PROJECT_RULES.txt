@@ -1,0 +1,58 @@
+================================================================================
+RESUMEFORGER AI - PROJECT CONTEXT & RULES FOR NEW CONVERSATIONS
+================================================================================
+
+Copy and paste the prompt below into any new conversation window to maintain all rules and requirements established for this project:
+
+--------------------------------------------------------------------------------
+[COPY-PASTE PROMPT START]
+--------------------------------------------------------------------------------
+PROJECT CONTEXT & CUSTOM RULES FOR RESUME CREATOR:
+
+⚠️ CORE WORKFLOW RULE (CONFIRMATION BEFORE EXECUTION):
+- ALWAYS ASK FOR CONFIRMATION FIRST: Before modifying code, writing files, deleting resources, or executing changes on any task, explain the proposed plan/approach and ask for my confirmation/approval first. Only proceed with implementation once I confirm.
+
+1. ARCHITECTURE & TECH STACK:
+   - Backend: ASP.NET Core Web API (.NET 10, C#) on Port 5097 with SQLite (resumes.db) and EF Core.
+   - Frontend: React 19 + Vite + Tailwind CSS on Port 5173.
+   - Document Export: QuestPDF (PDF generation) and DocumentFormat.OpenXml (Word .docx generation).
+
+2. UI & LAYOUT RULES:
+   - Details Panel Header (Left side):
+     * Do NOT place zoom/split-ratio buttons on the Details side. The header only contains tabs (Add Details, Advanced Settings, Target Job & ATS) and the Resume Title input box.
+     * Resume View Header (Right side): Split-ratio/zoom buttons ('1/3 View', '1/2', '2/3 View') and template presets stay exclusively on the Resume View preview side.
+   - Resume Title Input Field:
+     * Located on the top-right of the Details panel header.
+     * Text alignment MUST be left-to-right (`text-left`), never right-to-left (`text-right`).
+
+3. EXPORT FILE NAMING RULES:
+   - When exporting to PDF or Word (.docx), the download/save filename MUST be derived directly from the 'Resume Title' input box (e.g., if title is "Manojkumar_Resume", the exported files must be "Manojkumar_Resume.pdf" and "Manojkumar_Resume.docx").
+   - Special characters and spaces must be sanitized with clean underscores (`_`).
+   - If the title box is left blank, fallback to candidate Full Name (`<FullName>_Resume`) or `"Resume"`.
+   - Handled in both frontend (`ResumePreview.jsx`) and backend API headers (`ResumesController.cs`).
+
+4. RESUME TITLE DEFAULT & SEQUENCE RULES (NO BLANK BOX):
+   - The Resume Title input box must NEVER be left blank.
+   - When creating a new resume (+ New), titles must follow the automatic sequential naming scheme:
+     * 1st new resume: "Resume"
+     * 2nd new resume: "Resume 1"
+     * 3rd new resume: "Resume 2"
+     * 4th new resume: "Resume 3", and so forth.
+   - If a user deletes all characters from the title box and clicks away (onBlur), the UI must automatically restore the next available default sequential title (never leave an empty string).
+   - Applied in frontend (`App.jsx` via `getNextResumeTitle()`) and backend (`ResumesController.cs`).
+
+5. DELETION RULES & BASE RESUME PROTECTION:
+   - Delete Confirmation Window:
+     * Do NOT use native browser `window.confirm()`.
+     * Always use the custom modal window (`DeleteConfirmationModal.jsx`) asking:
+       "Are you sure you want to delete '[Resume Title]'? This action is permanent and cannot be undone." with Cancel and Delete buttons.
+   - Protection for Initial 3 Base Resumes:
+     * The first 3 base resumes must NEVER be deleted under any circumstances:
+       1) Manojkumar_Resume (ID: 2)
+       2) Multi-Page Test Resume (ID: 3)
+       3) Full-Stack Engineer (Sample) (ID: 1)
+     * Frontend Safeguard: In the resume selector dropdown, these 3 are labeled with a "Base" tag. Clicking the trash button on them opens an alert modal explaining they are protected base resumes.
+     * Backend Safeguard: In `ResumesController.cs`, `DELETE /api/resumes/{id}` rejects deletion of IDs 1, 2, and 3 with HTTP 400 Bad Request to ensure database integrity.
+--------------------------------------------------------------------------------
+[COPY-PASTE PROMPT END]
+--------------------------------------------------------------------------------
